@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shoply/core/utils/app_colors.dart';
+import 'package:shoply/constants.dart';
+import 'package:shoply/features/Onboarding/presentation/views/widgets/page_view_item.dart';
 
 class OnbroadingPageView extends StatelessWidget {
   const OnbroadingPageView({
@@ -12,40 +13,10 @@ class OnbroadingPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
-      itemCount: 4,
+      itemCount: kOnboardingItems.length,
       controller: pageController,
       itemBuilder: (context, index) {
-        return Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(top: 45),
-              color: AppColors.secondaryBackground,
-              child: const Column(
-                children: [
-                  Text(
-                    'Add To Favorite',
-                    style: TextStyle(
-                      color: AppColors.primaryText,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    "It's easy to add item you like in your favorites folder in Shoply",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.secondaryText,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 50),
-                ],
-              ),
-            ),
-          ],
-        );
+        return PageViewItem(index: index);
       },
     );
   }
