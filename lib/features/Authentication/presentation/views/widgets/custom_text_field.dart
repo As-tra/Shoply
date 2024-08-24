@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: false,
       validator: validate,
       keyboardType: const TextInputType.numberWithOptions(),
       decoration: InputDecoration(
