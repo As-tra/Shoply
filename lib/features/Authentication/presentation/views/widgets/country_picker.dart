@@ -4,7 +4,8 @@ import 'package:shoply/core/utils/app_colors.dart';
 import 'package:shoply/core/utils/assets.dart';
 
 class CountryPicker extends StatefulWidget {
-  const CountryPicker({super.key});
+  const CountryPicker({super.key, required this.update});
+  final void Function(int) update;
 
   @override
   State<CountryPicker> createState() => _CountryPickerState();
@@ -53,11 +54,11 @@ class _CountryPickerState extends State<CountryPicker> {
     showCountryPicker(
       onSelect: (Country country) {
         countryCode = country.phoneCode;
+        widget.update(country.example.length);
         setState(() {});
       },
       context: context,
       showPhoneCode: true,
-      searchAutofocus: true,
       countryListTheme: CountryListThemeData(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20.0),

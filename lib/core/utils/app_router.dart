@@ -10,15 +10,15 @@ class AppRouter {
     routes: [
       GoRoute(
         path: '/',
+        builder: (context, state) => const LoginWithPhoneView(),
+      ),
+      GoRoute(
+        path: '/',
         builder: (context, state) => const SplashView(),
       ),
       GoRoute(
         path: kOnboarding,
         builder: (context, state) => const OnboardingView(),
-      ),
-      GoRoute(
-        path: kLoginWithPhone,
-        builder: (context, state) => const LoginWithPhoneView(),
       ),
     ],
   );
