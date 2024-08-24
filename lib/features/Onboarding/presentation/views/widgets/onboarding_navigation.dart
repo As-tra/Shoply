@@ -1,7 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shoply/constants.dart';
 import 'package:shoply/core/utils/app_colors.dart';
+import 'package:shoply/core/utils/app_router.dart';
 import 'package:shoply/features/Onboarding/presentation/views/widgets/custom_button.dart';
 import 'package:shoply/features/Onboarding/presentation/views/widgets/page_view_progress_indicator.dart';
 
@@ -34,13 +35,7 @@ class OnboardingNavigation extends StatelessWidget {
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.linear,
                     )
-                  :
-                  // later add here the route fo the Auth view
-                  Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const Placeholder(),
-                      ),
-                    );
+                  : GoRouter.of(context).push(AppRouter.kLoginWithPhone);
             },
           )
         ],

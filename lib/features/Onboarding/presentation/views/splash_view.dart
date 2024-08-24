@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shoply/core/utils/app_colors.dart';
 import 'package:shoply/core/utils/app_router.dart';
+import 'package:shoply/features/Onboarding/presentation/views/widgets/splash_view_body.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -17,6 +18,7 @@ class _SplashViewState extends State<SplashView> {
     Future.delayed(
       const Duration(seconds: 2),
       () {
+        // check if the widget tree don't change so we don't face any problems
         if (mounted) {
           GoRouter.of(context).push(AppRouter.kOnboarding);
         }
@@ -29,21 +31,7 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: AppColors.primary,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'SHOPLY.',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 36,
-                letterSpacing: 1.3,
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: SplashViewBody()
     );
   }
 }
