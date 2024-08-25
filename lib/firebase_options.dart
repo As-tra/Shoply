@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'shoply-bca60.appspot.com',
     measurementId: 'G-BJ61Z5ZBPR',
   );
+
 }
