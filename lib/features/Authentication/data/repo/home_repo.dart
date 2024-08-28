@@ -1,4 +1,5 @@
-
 abstract class HomeRepo {
-  void sendPhoneCodeVerification({required String phone});
+  void sendPhoneCodeVerification({
+    required String phone,
+  });
 }

@@ -5,7 +5,7 @@ import 'package:shoply/core/utils/assets.dart';
 
 class CountryPicker extends StatefulWidget {
   const CountryPicker({super.key, required this.update});
-  final void Function(int) update;
+  final void Function(int,String) update;
 
   @override
   State<CountryPicker> createState() => _CountryPickerState();
@@ -54,7 +54,7 @@ class _CountryPickerState extends State<CountryPicker> {
     showCountryPicker(
       onSelect: (Country country) {
         countryCode = country.phoneCode;
-        widget.update(country.example.length);
+        widget.update(country.example.length,countryCode);
         setState(() {});
       },
       context: context,

@@ -1,5 +1,11 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shoply/core/utils/app_colors.dart';
+import 'package:shoply/core/utils/app_router.dart';
+import 'package:shoply/features/Authentication/data/models/otp_view_model.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/country_picker.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/custom_button.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/custom_text_field.dart';
@@ -14,11 +20,14 @@ class LoginWithPhoneViewBody extends StatefulWidget {
 
 class _LoginWithPhoneViewBodyState extends State<LoginWithPhoneViewBody> {
   int phoneLength = 10;
+  String? number;
+  String countryCode = '1';
   String errorMessage = '';
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  void _updateState(int value) {
+  void _updateState(int value, String code) {
     phoneLength = value;
+    countryCode = code;
     setState(() {});
   }
 
@@ -33,6 +42,7 @@ class _LoginWithPhoneViewBodyState extends State<LoginWithPhoneViewBody> {
     } else {
       errorMessage = '';
     }
+    number = value;
     setState(() {});
     return null;
   }
@@ -74,8 +84,30 @@ class _LoginWithPhoneViewBodyState extends State<LoginWithPhoneViewBody> {
             ),
             const Spacer(),
             CustomButton(
-                ontap: () {
+                ontap: () async {
                   _formKey.currentState!.validate();
+                  if (errorMessage.isEmpty) {
+                    log( "+$countryCode$number");
+                    await FirebaseAuth.instance.verifyPhoneNumber(
+                      phoneNumber: "+$countryCode$number",
+                      verificationCompleted: (credentials) {},
+                      verificationFailed: (e) {
+                        log(e.toString());
+                      },
+                      codeSent: (verificationId, resendToken) {
+                        GoRouter.of(context).push(
+                          AppRouter.kOtpVerificaton,
+                          extra: OtpViewModel(
+                            number: "+$countryCode$number",
+                            verficationId: verificationId,
+                          ),
+                        );
+                      },
+                      codeAutoRetrievalTimeout: (verificationId) {
+                        log(verificationId.toString());
+                      },
+                    );
+                  }
                 },
                 text: 'Continue to Login'),
             const SizedBox(height: 20),
