@@ -1,10 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply/core/utils/app_colors.dart';
+import 'package:shoply/core/utils/show_bottom_sheet_info.dart';
+import 'package:shoply/core/widgets/custom_loading_indicator.dart';
+import 'package:shoply/features/Authentication/presentation/manager/email_auth_cubit/email_auth_cubit.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/login_bottom_sheet_form_field.dart';
 import 'package:shoply/features/Onboarding/presentation/views/widgets/custom_button.dart';
 
-class LoginBottomSheet extends StatelessWidget {
+class LoginBottomSheet extends StatefulWidget {
   const LoginBottomSheet({super.key});
+
+  @override
+  State<LoginBottomSheet> createState() => _LoginBottomSheetState();
+}
+
+class _LoginBottomSheetState extends State<LoginBottomSheet> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+
+  final GlobalKey<FormState> formKey = GlobalKey();
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,42 +37,98 @@ class LoginBottomSheet extends StatelessWidget {
         right: 16,
         bottom: MediaQuery.of(context).viewInsets.bottom + 32,
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildTitle(),
-                IconButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(Icons.close),
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
-            const LoginBottomSheetFormField(
-              hint: 'Email Id',
-              icon: Icons.email_outlined,
-            ),
-            const SizedBox(height: 16),
-            const LoginBottomSheetFormField(
-              hint: 'Password',
-              icon: Icons.lock_outline,
-            ),
-            const SizedBox(height: 6),
-            _forgetPasswordLabel(),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomButton(ontap: () {}, text: 'Login'),
+      child: BlocConsumer<EmailAuthCubit, EmailAuthState>(
+        listener: (context, state) {
+          if (state is EmailAuthLoading) {
+            isLoading = true;
+            setState(() {});
+          } else if (state is EmailAuthSuccess) {
+            isLoading = false;
+            setState(() {});
+            showSuccessBottomSheetInfo(context, 'Login Successful!');
+          } else if (state is EmailAuthFailure) {
+            // handle all diffirent failure codes in firebase
+            isLoading = false;
+            setState(() {});
+            switch (state.errorCode) {
+              case 'invalid-credential':
+                showFailureBottomSheetInfo(
+                  context,
+                  'Password is Incorrect',
+                );
+              case 'invalid-email':
+                showFailureBottomSheetInfo(context, 'Email is Invalid');
+              case 'user-not-found':
+                showFailureBottomSheetInfo(context, 'No user with this Email');
+              default:
+                showFailureBottomSheetInfo(context, 'We have an Error!');
+            }
+          }
+        },
+        builder: (context, state) {
+          return Stack(
+            children: [
+              AbsorbPointer(
+                absorbing: isLoading,
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _buildTitle(),
+                            IconButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              icon: const Icon(Icons.close),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        LoginBottomSheetFormField(
+                          controller: emailController,
+                          hint: 'Email Id',
+                          icon: Icons.email_outlined,
+                        ),
+                        const SizedBox(height: 16),
+                        LoginBottomSheetFormField(
+                          controller: passwordController,
+                          hint: 'Password',
+                          visible: true,
+                          icon: Icons.lock_outline,
+                        ),
+                        const SizedBox(height: 6),
+                        _forgetPasswordLabel(),
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CustomButton(
+                                ontap: () {
+                                  if (formKey.currentState!.validate()) {
+                                    BlocProvider.of<EmailAuthCubit>(context)
+                                        .loginWithEmail(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    );
+                                  }
+                                },
+                                text: 'Login',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+              CustomLoadingIndicator(visible: isLoading),
+            ],
+          );
+        },
       ),
     );
   }
