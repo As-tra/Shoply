@@ -23,13 +23,12 @@ class OtpVerificationViewBody extends StatefulWidget {
 
 class _LoginWithPhoneViewBodyState extends State<OtpVerificationViewBody> {
   final TextEditingController textEditingController = TextEditingController();
-   final StreamController<ErrorAnimationType> _errorController =
+  final StreamController<ErrorAnimationType> _errorController =
       StreamController<ErrorAnimationType>();
   @override
   void dispose() {
     super.dispose();
     textEditingController.dispose();
-  
   }
 
   @override
@@ -60,14 +59,13 @@ class _LoginWithPhoneViewBodyState extends State<OtpVerificationViewBody> {
                 await FirebaseAuth.instance.signInWithCredential(cred);
                 if (context.mounted) {
                   Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const HomeView(),
-                  ),
-                );
+                    MaterialPageRoute(
+                      builder: (context) => const HomeView(),
+                    ),
+                  );
                 }
-                
               } catch (e) {
-                 _errorController.add(ErrorAnimationType.shake);
+                _errorController.add(ErrorAnimationType.shake);
                 log(e.toString());
               }
             },

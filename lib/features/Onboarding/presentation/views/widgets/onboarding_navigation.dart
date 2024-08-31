@@ -35,7 +35,7 @@ class OnboardingNavigation extends StatelessWidget {
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.linear,
                     )
-                  : GoRouter.of(context).push(AppRouter.kLoginWithPhone);
+                  : GoRouter.of(context).push(AppRouter.kLoginWithEmail);
             },
           )
         ],

@@ -87,14 +87,15 @@ class _LoginWithPhoneViewBodyState extends State<LoginWithPhoneViewBody> {
                 ontap: () async {
                   _formKey.currentState!.validate();
                   if (errorMessage.isEmpty) {
-                    log( "+$countryCode$number");
+                    log("+$countryCode$number");
                     await FirebaseAuth.instance.verifyPhoneNumber(
                       phoneNumber: "+$countryCode$number",
                       verificationCompleted: (credentials) {},
-                      verificationFailed: (e) {
-                        log(e.toString());
+                      verificationFailed: (FirebaseAuthException e) {
+                        log("verivation failed =========+> ${e.code}");
                       },
                       codeSent: (verificationId, resendToken) {
+                        // here the code is send successfully
                         GoRouter.of(context).push(
                           AppRouter.kOtpVerificaton,
                           extra: OtpViewModel(
@@ -104,7 +105,8 @@ class _LoginWithPhoneViewBodyState extends State<LoginWithPhoneViewBody> {
                         );
                       },
                       codeAutoRetrievalTimeout: (verificationId) {
-                        log(verificationId.toString());
+                        // log(verificationId.toString());
+                        log('astra');
                       },
                     );
                   }
