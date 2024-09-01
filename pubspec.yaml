@@ -37,8 +37,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  get_it: ^7.7.0
   go_router: ^14.2.6
+  google_sign_in: ^6.2.1
   pin_code_fields: ^8.0.1
+  shared_preferences: ^2.3.2
   svg_flutter: ^0.0.1
 
 dev_dependencies:

@@ -2,11 +2,12 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-part 'email_auth_state.dart';
+part 'auth_state.dart';
 
-class EmailAuthCubit extends Cubit<EmailAuthState> {
-  EmailAuthCubit() : super(EmailAuthInitial());
+class AuthCubit extends Cubit<AuthState> {
+  AuthCubit() : super(EmailAuthInitial());
 
   Future<void> loginWithEmail({
     required String email,
@@ -41,8 +42,26 @@ class EmailAuthCubit extends Cubit<EmailAuthState> {
     }
   }
 
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
   @override
-  void onChange(Change<EmailAuthState> change) {
+  void onChange(Change<AuthState> change) {
     super.onChange(change);
     log(change.toString());
   }

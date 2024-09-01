@@ -1,8 +1,11 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply/core/utils/app_colors.dart';
 import 'package:shoply/core/utils/assets.dart';
-import 'package:shoply/features/Authentication/presentation/manager/email_auth_cubit/email_auth_cubit.dart';
+import 'package:shoply/features/Authentication/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/auth_provider_button.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/custom_divider.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/signup_bottom_sheet.dart';
@@ -23,7 +26,11 @@ class SignupViewBody extends StatelessWidget {
           const SizedBox(height: 24),
           AuthProviderButton(
             text: 'Signup with Google',
-            ontap: () {},
+            ontap: () async {
+              UserCredential user =
+                  await BlocProvider.of<AuthCubit>(context).signInWithGoogle();
+              log(user.user?.displayName ?? '');
+            },
             icon: Assets.iconsGoogle,
           ),
           const SizedBox(height: 16),
@@ -40,7 +47,7 @@ class SignupViewBody extends StatelessWidget {
               Expanded(
                 child: CustomButton(
                   ontap: () {
-                    var emailAuthCubit = context.read<EmailAuthCubit>();
+                    var emailAuthCubit = context.read<AuthCubit>();
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,

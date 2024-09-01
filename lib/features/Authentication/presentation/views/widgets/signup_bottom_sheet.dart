@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply/core/utils/show_bottom_sheet_info.dart';
 import 'package:shoply/core/widgets/custom_loading_indicator.dart';
-import 'package:shoply/features/Authentication/presentation/manager/email_auth_cubit/email_auth_cubit.dart';
+import 'package:shoply/features/Authentication/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/custom_email_field.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/custom_password_field.dart';
 import 'package:shoply/features/Onboarding/presentation/views/widgets/custom_button.dart';
@@ -39,7 +39,7 @@ class _SignupBottomSheetState extends State<SignupBottomSheet> {
         right: 16,
         bottom: MediaQuery.of(context).viewInsets.bottom + 32,
       ),
-      child: BlocConsumer<EmailAuthCubit, EmailAuthState>(
+      child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is EmailAuthLoading) {
             isLoading = true;
@@ -57,7 +57,8 @@ class _SignupBottomSheetState extends State<SignupBottomSheet> {
               case 'invalid-email':
                 showFailureBottomSheetInfo(context, 'Email is Invalid');
               case 'weak-password':
-                showFailureBottomSheetInfo(context, 'Choose a stronger password!');
+                showFailureBottomSheetInfo(
+                    context, 'Choose a stronger password!');
               default:
                 showFailureBottomSheetInfo(context, 'We have an Error!');
             }
@@ -107,8 +108,8 @@ class _SignupBottomSheetState extends State<SignupBottomSheet> {
                               child: CustomButton(
                                 ontap: () {
                                   if (formKey.currentState!.validate()) {
-                                    BlocProvider.of<EmailAuthCubit>(context)
-                                        .loginWithEmail(
+                                    BlocProvider.of<AuthCubit>(context)
+                                        .signUpWithEmail(
                                       email: emailController.text,
                                       password: passwordController.text,
                                     );

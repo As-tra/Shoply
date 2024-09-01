@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shoply/core/utils/app_colors.dart';
 import 'package:shoply/core/utils/app_router.dart';
 import 'package:shoply/core/utils/assets.dart';
-import 'package:shoply/features/Authentication/presentation/manager/email_auth_cubit/email_auth_cubit.dart';
+import 'package:shoply/features/Authentication/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/auth_provider_button.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/custom_divider.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/login_bottom_sheet.dart';
@@ -17,7 +17,7 @@ class LoginWithEmailViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var emailAuthCubit = context.read<EmailAuthCubit>();
+    var emailAuthCubit = context.read<AuthCubit>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -70,7 +70,7 @@ class LoginWithEmailViewBody extends StatelessWidget {
     );
   }
 
-  Row _buildSignupAnchor(BuildContext context, EmailAuthCubit cubit) {
+  Row _buildSignupAnchor(BuildContext context, AuthCubit cubit) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shoply/core/services/shared_pref.dart';
 import 'package:shoply/core/utils/app_colors.dart';
 import 'package:shoply/core/utils/app_router.dart';
 import 'package:shoply/features/Onboarding/presentation/views/widgets/splash_view_body.dart';
@@ -20,18 +21,20 @@ class _SplashViewState extends State<SplashView> {
       () {
         // check if the widget tree don't change so we don't face any problems
         if (mounted) {
-          GoRouter.of(context).push(AppRouter.kOnboarding);
+          if (SharedPrefrenceHelper().getUserState() == null) {
+            SharedPrefrenceHelper().saveUserState();
+            GoRouter.of(context).push(AppRouter.kOnboarding);
+          } else {
+            GoRouter.of(context).push(AppRouter.kLoginWithEmail);
+          }
         }
       },
     );
   }
-  
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: AppColors.primary,
-      body: SplashViewBody()
-    );
+        backgroundColor: AppColors.primary, body: SplashViewBody());
   }
 }
