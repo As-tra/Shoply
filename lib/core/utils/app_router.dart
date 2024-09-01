@@ -1,5 +1,7 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shoply/features/Authentication/data/models/otp_view_model.dart';
+import 'package:shoply/features/Authentication/presentation/manager/email_auth_cubit/email_auth_cubit.dart';
 import 'package:shoply/features/Authentication/presentation/views/login_with_email_view.dart';
 import 'package:shoply/features/Authentication/presentation/views/login_with_phone_view.dart';
 import 'package:shoply/features/Authentication/presentation/views/otp_verification_view.dart';
@@ -39,7 +41,12 @@ class AppRouter {
       ),
       GoRoute(
         path: kSignUpWithEmail,
-        builder: (context, state) => const SignupView(),
+        builder: (context, state) {
+          return BlocProvider.value(
+            value: state.extra as EmailAuthCubit,
+            child: const SignupView(),
+          );
+        },
       ),
     ],
   );

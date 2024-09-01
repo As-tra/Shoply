@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply/core/utils/app_colors.dart';
 import 'package:shoply/core/utils/assets.dart';
+import 'package:shoply/features/Authentication/presentation/manager/email_auth_cubit/email_auth_cubit.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/auth_provider_button.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/custom_divider.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/signup_bottom_sheet.dart';
@@ -38,16 +40,15 @@ class SignupViewBody extends StatelessWidget {
               Expanded(
                 child: CustomButton(
                   ontap: () {
-                    // var emailAuthCubit = context.read<EmailAuthCubit>();
+                    var emailAuthCubit = context.read<EmailAuthCubit>();
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
                       builder: (context) {
-                        // return BlocProvider.value(
-                        //   value: emailAuthCubit,
-                        //   child: const LoginBottomSheet(),
-                        // );
-                        return const SignupBottomSheet();
+                        return BlocProvider.value(
+                          value: emailAuthCubit,
+                          child: const SignupBottomSheet(),
+                        );
                       },
                     );
                   },

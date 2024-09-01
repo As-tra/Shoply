@@ -18,10 +18,26 @@ class EmailAuthCubit extends Cubit<EmailAuthState> {
         email: email,
         password: password,
       );
-      emit(EmailAuthSuccess());
+      emit(EmailLoginSuccess());
     } on FirebaseException catch (exception) {
       log('error  => ${exception.code}');
-      emit(EmailAuthFailure(errorCode: exception.code));
+      emit(EmailLoginFailure(errorCode: exception.code));
+    }
+  }
+
+  Future<void> signUpWithEmail({
+    required String email,
+    required String password,
+  }) async {
+    emit(EmailAuthLoading());
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      emit(EmailSignUpSuccess());
+    } on FirebaseException catch (exception) {
+      emit(EmailSignUpFailure(errorCode: exception.code));
     }
   }
 

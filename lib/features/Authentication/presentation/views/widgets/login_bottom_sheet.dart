@@ -43,11 +43,11 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
           if (state is EmailAuthLoading) {
             isLoading = true;
             setState(() {});
-          } else if (state is EmailAuthSuccess) {
+          } else if (state is EmailLoginSuccess) {
             isLoading = false;
             setState(() {});
             showSuccessBottomSheetInfo(context, 'Login Successful!');
-          } else if (state is EmailAuthFailure) {
+          } else if (state is EmailLoginFailure) {
             isLoading = false;
             setState(() {});
             switch (state.errorCode) {

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +17,7 @@ class LoginWithEmailViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var emailAuthCubit = context.read<EmailAuthCubit>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -42,7 +45,7 @@ class LoginWithEmailViewBody extends StatelessWidget {
               Expanded(
                 child: CustomButton(
                   ontap: () {
-                    var emailAuthCubit = context.read<EmailAuthCubit>();
+                    log('cubit type is ${emailAuthCubit.runtimeType}');
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
@@ -60,15 +63,15 @@ class LoginWithEmailViewBody extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          _buildSignupAnchor(context),
+          _buildSignupAnchor(context, emailAuthCubit),
           const SizedBox(height: 36),
         ],
       ),
     );
   }
 
-  Row _buildSignupAnchor(BuildContext context) {
-    return  Row(
+  Row _buildSignupAnchor(BuildContext context, EmailAuthCubit cubit) {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text(
@@ -78,7 +81,10 @@ class LoginWithEmailViewBody extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => GoRouter.of(context).push(AppRouter.kSignUpWithEmail),
+          onTap: () => GoRouter.of(context).push(
+            AppRouter.kSignUpWithEmail,
+            extra: cubit,
+          ),
           child: const Text(
             ' SignUp',
             style: TextStyle(
