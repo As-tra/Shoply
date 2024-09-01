@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shoply/core/utils/app_colors.dart';
 
-class LoginBottomSheetFormField extends StatelessWidget {
-  const LoginBottomSheetFormField({
+class CustomEmailField extends StatelessWidget {
+  const CustomEmailField({
     super.key,
     required this.hint,
     required this.icon,
@@ -25,13 +25,10 @@ class LoginBottomSheetFormField extends StatelessWidget {
         return null;
       },
       controller: controller,
-      
       decoration: InputDecoration(
         border: _buildBorder(),
-        
         enabledBorder: _buildBorder(),
         focusedBorder: _buildBorder(),
-        
         prefixIcon: Icon(
           icon,
           color: AppColors.grey2,

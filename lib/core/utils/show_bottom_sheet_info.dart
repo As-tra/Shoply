@@ -26,10 +26,11 @@ void showFailureBottomSheetInfo(BuildContext context, String message) {
                 children: [
                   Expanded(
                     child: CustomButton(
-                        ontap: () {
-                          Navigator.of(context).pop();
-                        },
-                        text: 'Back'),
+                      ontap: () {
+                        Navigator.of(context).pop();
+                      },
+                      text: 'Back',
+                    ),
                   ),
                 ],
               )

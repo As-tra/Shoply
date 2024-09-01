@@ -3,6 +3,7 @@ import 'package:shoply/features/Authentication/data/models/otp_view_model.dart';
 import 'package:shoply/features/Authentication/presentation/views/login_with_email_view.dart';
 import 'package:shoply/features/Authentication/presentation/views/login_with_phone_view.dart';
 import 'package:shoply/features/Authentication/presentation/views/otp_verification_view.dart';
+import 'package:shoply/features/Authentication/presentation/views/signup_view.dart';
 import 'package:shoply/features/Onboarding/presentation/views/onboarding_view.dart';
 import 'package:shoply/features/Onboarding/presentation/views/splash_view.dart';
 
@@ -11,6 +12,7 @@ class AppRouter {
   static const kLoginWithPhone = '/login_with_phone';
   static const kOtpVerificaton = '/otp_verification';
   static const kLoginWithEmail = '/login_with_email';
+  static const kSignUpWithEmail = '/signup_with_email';
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -34,6 +36,10 @@ class AppRouter {
       GoRoute(
         path: kLoginWithEmail,
         builder: (context, state) => const LoginWithEmailView(),
+      ),
+      GoRoute(
+        path: kSignUpWithEmail,
+        builder: (context, state) => const SignupView(),
       ),
     ],
   );

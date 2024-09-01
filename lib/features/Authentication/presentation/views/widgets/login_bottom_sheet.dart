@@ -4,7 +4,8 @@ import 'package:shoply/core/utils/app_colors.dart';
 import 'package:shoply/core/utils/show_bottom_sheet_info.dart';
 import 'package:shoply/core/widgets/custom_loading_indicator.dart';
 import 'package:shoply/features/Authentication/presentation/manager/email_auth_cubit/email_auth_cubit.dart';
-import 'package:shoply/features/Authentication/presentation/views/widgets/login_bottom_sheet_form_field.dart';
+import 'package:shoply/features/Authentication/presentation/views/widgets/custom_email_field.dart';
+import 'package:shoply/features/Authentication/presentation/views/widgets/custom_password_field.dart';
 import 'package:shoply/features/Onboarding/presentation/views/widgets/custom_button.dart';
 
 class LoginBottomSheet extends StatefulWidget {
@@ -47,15 +48,11 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
             setState(() {});
             showSuccessBottomSheetInfo(context, 'Login Successful!');
           } else if (state is EmailAuthFailure) {
-            // handle all diffirent failure codes in firebase
             isLoading = false;
             setState(() {});
             switch (state.errorCode) {
               case 'invalid-credential':
-                showFailureBottomSheetInfo(
-                  context,
-                  'Password is Incorrect',
-                );
+                showFailureBottomSheetInfo(context, 'Password is Incorrect');
               case 'invalid-email':
                 showFailureBottomSheetInfo(context, 'Email is Invalid');
               case 'user-not-found':
@@ -66,11 +63,11 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
           }
         },
         builder: (context, state) {
-          return Stack(
-            children: [
-              AbsorbPointer(
-                absorbing: isLoading,
-                child: SingleChildScrollView(
+          return AbsorbPointer(
+            absorbing: isLoading,
+            child: Stack(
+              children: [
+                SingleChildScrollView(
                   child: Form(
                     key: formKey,
                     child: Column(
@@ -87,17 +84,15 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                           ],
                         ),
                         const SizedBox(height: 16),
-                        LoginBottomSheetFormField(
+                        CustomEmailField(
                           controller: emailController,
                           hint: 'Email Id',
                           icon: Icons.email_outlined,
                         ),
                         const SizedBox(height: 16),
-                        LoginBottomSheetFormField(
+                        CustomPasswordField(
                           controller: passwordController,
                           hint: 'Password',
-                          visible: true,
-                          icon: Icons.lock_outline,
                         ),
                         const SizedBox(height: 6),
                         _forgetPasswordLabel(),
@@ -124,9 +119,9 @@ class _LoginBottomSheetState extends State<LoginBottomSheet> {
                     ),
                   ),
                 ),
-              ),
-              CustomLoadingIndicator(visible: isLoading),
-            ],
+                CustomLoadingIndicator(visible: isLoading),
+              ],
+            ),
           );
         },
       ),

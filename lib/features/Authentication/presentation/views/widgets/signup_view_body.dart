@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:shoply/core/utils/app_colors.dart';
-import 'package:shoply/core/utils/app_router.dart';
 import 'package:shoply/core/utils/assets.dart';
-import 'package:shoply/features/Authentication/presentation/manager/email_auth_cubit/email_auth_cubit.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/auth_provider_button.dart';
 import 'package:shoply/features/Authentication/presentation/views/widgets/custom_divider.dart';
-import 'package:shoply/features/Authentication/presentation/views/widgets/login_bottom_sheet.dart';
+import 'package:shoply/features/Authentication/presentation/views/widgets/signup_bottom_sheet.dart';
 import 'package:shoply/features/Onboarding/presentation/views/widgets/custom_button.dart';
 
-class LoginWithEmailViewBody extends StatelessWidget {
-  const LoginWithEmailViewBody({super.key});
+class SignupViewBody extends StatelessWidget {
+  const SignupViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +20,13 @@ class LoginWithEmailViewBody extends StatelessWidget {
           _buildTitle(),
           const SizedBox(height: 24),
           AuthProviderButton(
-            text: 'Login with Google',
+            text: 'Signup with Google',
             ontap: () {},
             icon: Assets.iconsGoogle,
           ),
           const SizedBox(height: 16),
           AuthProviderButton(
-            text: 'Login with Facebook',
+            text: 'Signup with Facebook',
             ontap: () {},
             icon: Assets.iconsFacebook,
           ),
@@ -42,19 +38,20 @@ class LoginWithEmailViewBody extends StatelessWidget {
               Expanded(
                 child: CustomButton(
                   ontap: () {
-                    var emailAuthCubit = context.read<EmailAuthCubit>();
+                    // var emailAuthCubit = context.read<EmailAuthCubit>();
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
                       builder: (context) {
-                        return BlocProvider.value(
-                          value: emailAuthCubit,
-                          child: const LoginBottomSheet(),
-                        );
+                        // return BlocProvider.value(
+                        //   value: emailAuthCubit,
+                        //   child: const LoginBottomSheet(),
+                        // );
+                        return const SignupBottomSheet();
                       },
                     );
                   },
-                  text: 'Login with Email',
+                  text: 'Signup with Email',
                 ),
               ),
             ],
@@ -66,40 +63,40 @@ class LoginWithEmailViewBody extends StatelessWidget {
       ),
     );
   }
+}
 
-  Row _buildSignupAnchor(BuildContext context) {
-    return  Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          "Don't have an account yet?",
-          style: TextStyle(
-            color: AppColors.primaryText,
-          ),
+Row _buildSignupAnchor(BuildContext context) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      const Text(
+        "Already have an account?",
+        style: TextStyle(
+          color: AppColors.primaryText,
         ),
-        GestureDetector(
-          onTap: () => GoRouter.of(context).push(AppRouter.kSignUpWithEmail),
-          child: const Text(
-            ' SignUp',
-            style: TextStyle(
-              color: AppColors.primary,
-              decoration: TextDecoration.underline,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Text _buildTitle() {
-    return const Text(
-      'Login to Shoply',
-      style: TextStyle(
-        fontSize: 22,
-        color: AppColors.primaryText,
-        fontWeight: FontWeight.bold,
       ),
-    );
-  }
+      GestureDetector(
+        onTap: () => Navigator.of(context).pop(),
+        child: const Text(
+          ' Login',
+          style: TextStyle(
+            color: AppColors.primary,
+            decoration: TextDecoration.underline,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Text _buildTitle() {
+  return const Text(
+    'Signup to Shoply',
+    style: TextStyle(
+      fontSize: 22,
+      color: AppColors.primaryText,
+      fontWeight: FontWeight.bold,
+    ),
+  );
 }
