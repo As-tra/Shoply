@@ -107,7 +107,9 @@ class _SignupBottomSheetState extends State<SignupBottomSheet> {
                             Expanded(
                               child: CustomButton(
                                 ontap: () {
-                                  if (formKey.currentState!.validate()) {
+                                  if (formKey.currentState!.validate() &&
+                                      passwordController.text ==
+                                          confirmPasswordController.text) {
                                     BlocProvider.of<AuthCubit>(context)
                                         .signUpWithEmail(
                                       email: emailController.text,

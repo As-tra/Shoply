@@ -48,6 +48,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093766514547:android:239c6b2f72e8c77411a706",
+        "android_client_info": {
+          "package_name": "com.shoply.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093766514547-08qev8qgikrnc9f8jesnloq0nauv5nu5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcOVi1yu50hhvyDMjs1cfU8UcbJphfO2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093766514547-08qev8qgikrnc9f8jesnloq0nauv5nu5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1093766514547-k5vd9f6cgg6rp7mr7m81pevvc8gbvqa3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shoply"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

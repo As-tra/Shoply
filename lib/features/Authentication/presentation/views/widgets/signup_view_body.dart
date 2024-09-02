@@ -1,6 +1,4 @@
-import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoply/core/utils/app_colors.dart';
@@ -27,9 +25,9 @@ class SignupViewBody extends StatelessWidget {
           AuthProviderButton(
             text: 'Signup with Google',
             ontap: () async {
-              UserCredential user =
-                  await BlocProvider.of<AuthCubit>(context).signInWithGoogle();
-              log(user.user?.displayName ?? '');
+              // UserCredential user =
+              await BlocProvider.of<AuthCubit>(context).signInWithGoogle();
+              // log(user.user?.displayName ?? '');
             },
             icon: Assets.iconsGoogle,
           ),
