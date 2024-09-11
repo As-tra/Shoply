@@ -1,45 +1,37 @@
 {
   "project_info": {
-    "project_number": "1093766514547",
-    "project_id": "shoply-bca60",
-    "storage_bucket": "shoply-bca60.appspot.com"
+    "project_number": "913971155323",
+    "project_id": "shoply-c6124",
+    "storage_bucket": "shoply-c6124.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1093766514547:android:1cef356b958e961b11a706",
+        "mobilesdk_app_id": "1:913971155323:android:07407781dd0f45d2bf6dde",
         "android_client_info": {
           "package_name": "com.example.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1093766514547-uvji0pgheeui1a18p5ktu94p2l3ogiir.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.app",
-            "certificate_hash": "234a2975437cda3e00a35ba29ad48aeea215288f"
-          }
-        },
-        {
-          "client_id": "1093766514547-08qev8qgikrnc9f8jesnloq0nauv5nu5.apps.googleusercontent.com",
+          "client_id": "913971155323-hgbc7qjrd00et325othe2k8ksf8v8sib.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCcOVi1yu50hhvyDMjs1cfU8UcbJphfO2g"
+          "current_key": "AIzaSyB8slrd02bPtf0olkt_X9oJkNoiCq9feFk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1093766514547-08qev8qgikrnc9f8jesnloq0nauv5nu5.apps.googleusercontent.com",
+              "client_id": "913971155323-hgbc7qjrd00et325othe2k8ksf8v8sib.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1093766514547-k5vd9f6cgg6rp7mr7m81pevvc8gbvqa3.apps.googleusercontent.com",
+              "client_id": "913971155323-mrrms7ablkngh7c2ktk6f6f5h01kur39.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.shoply"
@@ -51,31 +43,39 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1093766514547:android:239c6b2f72e8c77411a706",
+        "mobilesdk_app_id": "1:913971155323:android:8ab478fa80a9d52ebf6dde",
         "android_client_info": {
-          "package_name": "com.shoply.app"
+          "package_name": "com.example.shoply"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1093766514547-08qev8qgikrnc9f8jesnloq0nauv5nu5.apps.googleusercontent.com",
+          "client_id": "913971155323-ge672941rets7r12mf9bj8704n4vjkpl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shoply",
+            "certificate_hash": "234a2975437cda3e00a35ba29ad48aeea215288f"
+          }
+        },
+        {
+          "client_id": "913971155323-hgbc7qjrd00et325othe2k8ksf8v8sib.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCcOVi1yu50hhvyDMjs1cfU8UcbJphfO2g"
+          "current_key": "AIzaSyB8slrd02bPtf0olkt_X9oJkNoiCq9feFk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1093766514547-08qev8qgikrnc9f8jesnloq0nauv5nu5.apps.googleusercontent.com",
+              "client_id": "913971155323-hgbc7qjrd00et325othe2k8ksf8v8sib.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1093766514547-k5vd9f6cgg6rp7mr7m81pevvc8gbvqa3.apps.googleusercontent.com",
+              "client_id": "913971155323-mrrms7ablkngh7c2ktk6f6f5h01kur39.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.shoply"
